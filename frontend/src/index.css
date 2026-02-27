@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #FAFAF9;
+    color: #0F1729;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-blue-primary text-white font-display font-semibold px-5 py-2.5 rounded-lg 
+           hover:bg-blue-hover transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed
+           shadow-sm active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply bg-white text-ink font-display font-medium px-5 py-2.5 rounded-lg 
+           border border-slate-border hover:bg-slate-subtle transition-all duration-150
+           shadow-card active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply text-ink-muted font-medium px-4 py-2 rounded-lg
+           hover:bg-slate-subtle transition-all duration-150;
+  }
+
+  .card {
+    @apply bg-white border border-slate-border rounded-xl shadow-card;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-ink-muted mb-1.5;
+  }
+
+  .form-input {
+    @apply w-full px-3.5 py-2.5 border border-slate-border rounded-lg bg-white
+           text-ink placeholder:text-ink-muted/50 text-sm
+           focus:outline-none focus:ring-2 focus:ring-blue-primary/20 focus:border-blue-primary
+           transition-all duration-150;
+  }
+
+  .radio-option {
+    @apply flex items-center gap-2.5 px-4 py-2.5 rounded-lg border-2 cursor-pointer
+           transition-all duration-150 text-sm font-medium;
+  }
+
+  .radio-option-inactive {
+    @apply border-slate-border text-ink-muted hover:border-blue-mid hover:text-ink bg-white;
+  }
+
+  .radio-option-active {
+    @apply border-blue-primary bg-blue-light text-blue-primary;
+  }
+
+  .tab-btn {
+    @apply px-4 py-2.5 text-sm font-medium border-b-2 transition-all duration-150 whitespace-nowrap;
+  }
+
+  .tab-btn-active {
+    @apply border-blue-primary text-blue-primary;
+  }
+
+  .tab-btn-inactive {
+    @apply border-transparent text-ink-muted hover:text-ink hover:border-slate-border;
+  }
+
+  .signal-score-btn {
+    @apply w-9 h-9 rounded-lg border-2 font-mono font-medium text-sm 
+           transition-all duration-100 active:scale-95;
+  }
+
+  .score-0 { @apply border-slate-border text-ink-muted bg-white hover:border-blue-mid; }
+  .score-0-active { @apply border-slate-border bg-slate-subtle text-ink-muted; }
+  .score-1-active { @apply border-amber-trigger bg-amber-trigger-bg text-amber-600; }
+  .score-2-active { @apply border-green-signal bg-green-signal-bg text-green-signal; }
+
+  .dimension-dot {
+    @apply w-3 h-3 rounded-full transition-all duration-200;
+  }
+
+  .save-indicator {
+    @apply text-xs font-mono flex items-center gap-1.5 transition-all duration-300;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #E5E4E0 transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #E5E4E0;
+    border-radius: 2px;
+  }
+}

@@ -1,0 +1,59 @@
+name: CI/CD
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  backend-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+      - name: Run backend tests
+        run: |
+          cd backend
+          pytest -q
+
+  frontend-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm ci
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm run build
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: [backend-test, frontend-build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /opt/blenko-discovery
+            git pull origin main
+            docker-compose down
+            docker-compose up -d --build
+            docker-compose exec -T backend alembic upgrade head
