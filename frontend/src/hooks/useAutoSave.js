@@ -18,7 +18,7 @@ export function useAutoSave(delay = 800) {
 
   const triggerAutoSave = useCallback(
     (updates) => {
-      if (!sessionId) return
+      if (!sessionId || String(sessionId).startsWith('local-')) return
 
       setSaveStatus('saving')
 
